@@ -1,10 +1,20 @@
 {
+  // 配置编译器选项
   "compilerOptions": {
-    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "module": "commonjs" /* Specify what module code is generated. */,
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-    "strict": true /* Enable all strict type-checking options. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
-  }
+    "target": "ES5", // 目标JavaScript版本
+    "module": "commonjs", // 模块系统
+    "esModuleInterop": true, // 允许使用commonjs模块语法
+    "forceConsistentCasingInFileNames": true, // 强制文件名大小写一致性
+    "strict": true, // 启用严格模式
+    "skipLibCheck": true, // 跳过类型库检查
+    "typeRoots": ["node_modules/@types", "src/@types"], // 指定类型定义文件查找路径
+    "outDir": "./dist", // 指定输出目录
+    "sourceMap": true, // 生成源码映射文件
+    "experimentalDecorators": true, // 启用实验性的装饰器
+    "emitDecoratorMetadata": true // 发出装饰器元数据
+  },
+  // 指定需要编译的文件
+  "include": ["src/*.ts", "src/**/*.ts", "src/@types/*.d.ts"],
+  // 排除不需要编译的文件或目录
+  "exclude": ["node_modules"]
 }
