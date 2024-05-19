@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// 常用命令
+// npx prisma format 格式化schema
+// npx prisma migrate dev --name init 初始化数据库
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id           Int      @id @default(autoincrement())
+  phone        String?  @unique
+  password     String?
+  status       Int?     @default(1) @db.TinyInt
+  remark       String?
+  contact      String?
+  merchantName String?
+  isAdmin      Int?     @default(0) @db.TinyInt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([phone, merchantName])
+}

@@ -11,7 +11,7 @@ export const respMiddleware = () => {
       }
     }
     ctx.fail = (code: number, msg: string) => {
-      ctx.status = 500
+      ctx.status = 200
       ctx.body = {
         code,
         msg: msg || 'fail',

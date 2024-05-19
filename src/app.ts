@@ -11,6 +11,9 @@ import { corsMiddleware } from './middleware/cors'
 import { errHandleMiddleware } from './middleware/errHandle'
 import { respMiddleware } from './middleware/resp'
 
+import AccountRoute from './router/account'
+import AuthRoute from './router/auth'
+
 // 启动端口号
 const port = 3000
 const app = new Koa()
@@ -25,7 +28,7 @@ app.use(errHandleMiddleware)
 app.use(KoaCors(corsMiddleware))
 
 // 统一响应处理
-app.use(respMiddleware)
+app.use(respMiddleware())
 
 // http请求解析
 app.use(
@@ -50,6 +53,10 @@ app.use(
     path: JWT_WHITE_LIST,
   })
 )
+
+// 路由注册
+app.use(AuthRoute.routes()).use(AuthRoute.allowedMethods())
+app.use(AccountRoute.routes()).use(AccountRoute.allowedMethods())
 
 // 服务端口监听
 app.listen(port, () => {
