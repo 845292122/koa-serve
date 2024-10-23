@@ -1,11 +1,14 @@
 import AddressIP from 'ip'
-import Koa from 'koa'
+import Koa, { Context } from 'koa'
 import KoaBody from 'koa-body'
 import KoaJwt from 'koa-jwt'
-import KoaLogger from 'koa-logger'
+import KoaMorgan from 'koa-morgan'
+import KoaOnError from 'koa-onerror'
+import KoaPinoLogger from 'koa-pino-logger'
 import KoaStatic from 'koa-static'
 import KoaCors from 'koa2-cors'
 import Path from 'path'
+
 import { JWT_SECRET, JWT_WHITE_LIST } from './core/constant'
 import { corsMiddleware } from './middleware/cors'
 import { errHandleMiddleware } from './middleware/errHandle'
@@ -18,8 +21,18 @@ import AuthRoute from './router/auth'
 const port = 3000
 const app = new Koa()
 
-// 日志处理
-app.use(KoaLogger((str) => console.log(new Date() + str)))
+KoaOnError(app, {
+  all(err: Error, ctx: Context) {
+    // TODO: 错误处理
+    console.log(err, ctx)
+  },
+})
+
+// 日志处理 ctx.log.info
+app.use(KoaPinoLogger())
+
+// 请求记录日志
+app.use(KoaMorgan(':remote-addr - :method :url HTTP/:http-version :status :res[content-length] - :response-time ms'))
 
 // 错误处理
 app.use(errHandleMiddleware)
