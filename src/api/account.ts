@@ -2,12 +2,12 @@ import { PrismaClient } from '@prisma/client'
 import BCrypt from 'bcryptjs'
 import { Context } from 'koa'
 import { z } from 'zod'
-import { AccountType } from '../types/account'
-import { extractErrorMessage } from '../utils/validate'
+import { extractErrorMessage } from '../helper'
+import { AccountType } from '../types'
 
 const prisma = new PrismaClient()
 
-export default class AccountApi {
+class AccountApi1 {
   /**
    * 获取账户列表
    */

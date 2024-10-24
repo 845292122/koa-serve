@@ -14,8 +14,8 @@ import { corsMiddleware } from './middleware/cors'
 import { errHandleMiddleware } from './middleware/errHandle'
 import { respMiddleware } from './middleware/resp'
 
-import AccountRoute from './router/account'
-import AuthRoute from './router/auth'
+import AccountRoute from './routes/account'
+import AuthRoute from './routes/auth'
 
 // 启动端口号
 const port = 3000

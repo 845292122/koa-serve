@@ -4,8 +4,8 @@ import Jwt from 'jsonwebtoken'
 import { Context } from 'koa'
 import { z } from 'zod'
 import { JWT_SECRET } from '../core/constant'
-import { AuthType } from '../types/auth'
-import { extractErrorMessage } from '../utils/validate'
+import { extractErrorMessage } from '../helper'
+import { AuthType } from '../types'
 
 const prisma = new PrismaClient()
 
