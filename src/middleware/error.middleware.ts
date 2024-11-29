@@ -1,7 +1,7 @@
 import { Context, Next } from 'koa'
 
 export const errorHandleMiddleware = async (ctx: Context, next: Next) => {
-  return await next().catch((err) => {
+  return await next().catch(err => {
     let code: number
     let msg: string
 

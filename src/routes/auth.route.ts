@@ -28,7 +28,7 @@ export const authRoutes = (zodRouter: ZodRouter) => {
       if (ctx.invalid.error && ctx.invalid.body) {
         // TODO: 需要优化,抽成一个func
         const errArr: Array<any> = JSON.parse(ctx.invalid.body)
-        const errMsg = errArr.map((err) => err.message).join(',')
+        const errMsg = errArr.map(err => err.message).join(',')
         throw new BadRequesetError(errMsg)
       }
 

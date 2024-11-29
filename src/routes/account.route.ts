@@ -26,7 +26,7 @@ export const accountRoutes = (zodRouter: ZodRouter) => {
 
       if (ctx.invalid.error && ctx.invalid.body) {
         const errArr: Array<any> = JSON.parse(ctx.invalid.body)
-        const errMsg = errArr.map((err) => err.message).join(',')
+        const errMsg = errArr.map(err => err.message).join(',')
         throw new BadRequesetError(errMsg)
       }
 
