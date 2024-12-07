@@ -4,7 +4,7 @@ import { Context } from 'koa'
 import { ZodRouter } from 'koa-zod-router'
 import { z } from 'zod'
 import { JWT_SECRET } from '../core/constant'
-import { BadRequesetError, prisma } from '../helper'
+import { BadRequesetError, prismaUtil } from '../utils'
 import { AuthType } from '../types'
 
 export const authRoutes = (zodRouter: ZodRouter) => {
@@ -32,7 +32,7 @@ export const authRoutes = (zodRouter: ZodRouter) => {
         throw new BadRequesetError(errMsg)
       }
 
-      const account: any = await prisma.account.findUnique({
+      const account: any = await prismaUtil.account.findUnique({
         where: {
           phone: loginParam.phone
         }
@@ -52,7 +52,7 @@ export const authRoutes = (zodRouter: ZodRouter) => {
       }
 
       const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })
-      ctx.body = token
+      ctx.ok(token)
     }
   })
 
@@ -65,7 +65,7 @@ export const authRoutes = (zodRouter: ZodRouter) => {
     path: '/auth/info',
     handler: async (ctx: Context) => {
       const { id } = ctx.state?.user || {}
-      const authInfo: any = await prisma.account.findUnique({
+      const authInfo: any = await prismaUtil.account.findUnique({
         where: {
           id
         }

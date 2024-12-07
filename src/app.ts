@@ -8,7 +8,7 @@ import koaCors from 'koa2-cors'
 import path from 'path'
 
 import { JWT_SECRET, JWT_WHITE_LIST } from './core/constant'
-import { checkTokenRevoked } from './helper'
+import { checkTokenRevoked } from './utils'
 import { corsMiddleware, errorHandleMiddleware, respMiddleware } from './middleware'
 import router from './routes'
 

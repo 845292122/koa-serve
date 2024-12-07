@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import { Context } from 'koa'
 import { ZodRouter } from 'koa-zod-router'
 import { z } from 'zod'
-import { BadRequesetError, prisma } from '../helper'
+import { BadRequesetError, prismaUtil } from '../utils'
 
 export const accountRoutes = (zodRouter: ZodRouter) => {
   /**
@@ -30,7 +30,7 @@ export const accountRoutes = (zodRouter: ZodRouter) => {
         throw new BadRequesetError(errMsg)
       }
 
-      const accountExist = await prisma.account.findUnique({
+      const accountExist = await prismaUtil.account.findUnique({
         where: { phone: accountInfo.phone }
       })
 
@@ -39,7 +39,7 @@ export const accountRoutes = (zodRouter: ZodRouter) => {
       }
 
       accountInfo.password = bcrypt.hashSync(INIT_PWD, 10)
-      const newAccount = await prisma.account.create({
+      const newAccount = await prismaUtil.account.create({
         data: accountInfo
       })
 

@@ -13,7 +13,7 @@
     "emitDecoratorMetadata": true // 发出装饰器元数据
   },
   // 指定需要编译的文件
-  "include": ["src/*.ts", "src/**/*.ts"],
+  "include": ["src"],
   // 排除不需要编译的文件或目录
   "exclude": ["node_modules"]
 }
