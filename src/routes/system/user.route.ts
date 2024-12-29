@@ -27,6 +27,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
       const INIT_PWD = '123456'
 
       parseAndThrowZodError(ctx)
+      if (userInfo.id) throw new BadRequesetError('用户ID存在')
       const userExist = await PrismaObj.user.findFirst({
         where: { phone: userInfo.phone, delFlag: 0 }
       })
