@@ -2,7 +2,7 @@ import { ZodRouter } from 'koa-zod-router'
 import { z } from 'zod'
 import { BadRequesetError, parseAndThrowZodError } from '../../helper/error.helper'
 import { convertPageParam, PrismaObj } from '../../prisma'
-import { Context } from 'koa'
+import { Context, Next } from 'koa'
 import bcrypt from 'bcryptjs'
 import { Prisma } from '@prisma/client'
 import { UserType } from '../../types'
@@ -10,9 +10,12 @@ import { UserType } from '../../types'
 export const UserRoute = (zodRouter: ZodRouter) => {
   // * 创建用户
   zodRouter.register({
-    name: 'createUser',
     method: 'post',
     path: '/user',
+    pre: async (ctx: Context, next: Next) => {
+      ctx.log.info('ctx', ctx)
+      await next()
+    },
     validate: {
       continueOnError: true,
       body: z.object({
@@ -40,7 +43,6 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 更新用户
   zodRouter.register({
-    name: 'updateUser',
     method: 'put',
     path: '/user',
     validate: {
@@ -73,7 +75,6 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 删除用户
   zodRouter.register({
-    name: 'removeUser',
     method: 'delete',
     path: '/user/:id',
     validate: {
@@ -97,7 +98,6 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 获取用户列表
   zodRouter.register({
-    name: 'userList',
     method: 'get',
     path: '/user/list',
     validate: {
@@ -127,7 +127,6 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 获取用户信息
   zodRouter.register({
-    name: 'userInfo',
     method: 'get',
     path: '/user/:id',
     validate: {
