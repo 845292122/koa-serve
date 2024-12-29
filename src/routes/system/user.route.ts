@@ -9,8 +9,7 @@ import { UserType } from '../../types'
 
 export const UserRoute = (zodRouter: ZodRouter) => {
   // * 创建用户
-  zodRouter.register({
-    method: 'post',
+  zodRouter.post({
     path: '/user',
     pre: async (ctx: Context, next: Next) => {
       ctx.log.info('ctx', ctx)
@@ -42,8 +41,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
   })
 
   // * 更新用户
-  zodRouter.register({
-    method: 'put',
+  zodRouter.put({
     path: '/user',
     validate: {
       continueOnError: true,
@@ -74,8 +72,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
   })
 
   // * 删除用户
-  zodRouter.register({
-    method: 'delete',
+  zodRouter.delete({
     path: '/user/:id',
     validate: {
       continueOnError: true,
@@ -97,8 +94,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
   })
 
   // * 获取用户列表
-  zodRouter.register({
-    method: 'get',
+  zodRouter.get({
     path: '/user/list',
     validate: {
       continueOnError: true,
@@ -126,8 +122,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
   })
 
   // * 获取用户信息
-  zodRouter.register({
-    method: 'get',
+  zodRouter.get({
     path: '/user/:id',
     validate: {
       continueOnError: true,
