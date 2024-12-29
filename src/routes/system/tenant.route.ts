@@ -137,7 +137,7 @@ export const TenantRoute = (zodRouter: ZodRouter) => {
       parseAndThrowZodError(ctx)
       const { id } = ctx.params
       const tenantInfo = await PrismaObj.tenant.findUnique({
-        where: { id, delFlag: 0 }
+        where: { id: Number(id), delFlag: 0 }
       })
       ctx.body = tenantInfo
     }

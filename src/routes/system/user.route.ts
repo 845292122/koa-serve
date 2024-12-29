@@ -139,7 +139,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
     handler: async (ctx: Context) => {
       const { id } = ctx.params
       const userInfo = await PrismaObj.user.findUnique({
-        where: { id, delFlag: 0 },
+        where: { id: Number(id), delFlag: 0 },
         select: {
           id: true,
           name: true,
