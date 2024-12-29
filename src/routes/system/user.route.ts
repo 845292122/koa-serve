@@ -12,7 +12,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
   zodRouter.register({
     name: 'createUser',
     method: 'post',
-    path: '/user/create',
+    path: '/user',
     validate: {
       continueOnError: true,
       body: z.object({
@@ -33,16 +33,16 @@ export const UserRoute = (zodRouter: ZodRouter) => {
       }
 
       userInfo.password = bcrypt.hashSync(INIT_PWD, 10)
-      const newUser = await PrismaObj.user.create({ data: userInfo })
-      ctx.body = newUser
+      await PrismaObj.user.create({ data: userInfo })
+      ctx.body = 'ok'
     }
   })
 
   // * 更新用户
   zodRouter.register({
     name: 'updateUser',
-    method: 'post',
-    path: '/user/update',
+    method: 'put',
+    path: '/user',
     validate: {
       continueOnError: true,
       body: z.object({
@@ -67,19 +67,19 @@ export const UserRoute = (zodRouter: ZodRouter) => {
         where: { id: userInfo.id, delFlag: 0 },
         data: userInfo
       })
-      ctx.body = userInfo
+      ctx.body = 'ok'
     }
   })
 
   // * 删除用户
   zodRouter.register({
     name: 'removeUser',
-    method: 'post',
-    path: '/user/remove/:id',
+    method: 'delete',
+    path: '/user/:id',
     validate: {
       continueOnError: true,
       params: z.object({
-        id: z.number().int().positive()
+        id: z.number({ message: '用户ID不能为空' }).int().positive()
       })
     },
     handler: async (ctx: Context) => {
@@ -91,13 +91,13 @@ export const UserRoute = (zodRouter: ZodRouter) => {
         data: { delFlag: 1 }
       })
 
-      ctx.body = { id }
+      ctx.body = 'ok'
     }
   })
 
   // * 获取用户列表
   zodRouter.register({
-    name: 'queryUserList',
+    name: 'userList',
     method: 'get',
     path: '/user/list',
     validate: {
@@ -127,7 +127,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 获取用户信息
   zodRouter.register({
-    name: 'queryUserInfo',
+    name: 'userInfo',
     method: 'get',
     path: '/user/:id',
     validate: {
