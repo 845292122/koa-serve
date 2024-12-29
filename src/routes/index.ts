@@ -1,11 +1,9 @@
 import zodRouter from 'koa-zod-router'
-import { accountRoutes } from './account.route'
-import { authRoutes } from './auth.route'
+import { UserRoute } from './system/user.route'
 
 const router = zodRouter()
 
-// 注册账号路由
-accountRoutes(router)
-authRoutes(router)
+// * 系统模块
+UserRoute(router)
 
 export default router

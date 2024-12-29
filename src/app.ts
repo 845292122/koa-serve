@@ -8,7 +8,6 @@ import koaCors from 'koa2-cors'
 import path from 'path'
 
 import { JWT_SECRET, JWT_WHITE_LIST } from './core/constant'
-import { checkTokenRevoked } from './utils'
 import { corsMiddleware, errorHandleMiddleware, respMiddleware } from './middleware'
 import router from './routes'
 
@@ -45,11 +44,11 @@ app.use(
 )
 app.use(koaStatic(path.join(__dirname, '../public/')))
 
-app.use(
-  koaJwt({ secret: JWT_SECRET, key: 'user', isRevoked: checkTokenRevoked }).unless({
-    path: JWT_WHITE_LIST
-  })
-)
+// app.use(
+//   koaJwt({ secret: JWT_SECRET, key: 'user', isRevoked: checkTokenRevoked }).unless({
+//     path: JWT_WHITE_LIST
+//   })
+// )
 
 app.use(router.routes()).use(router.allowedMethods())
 

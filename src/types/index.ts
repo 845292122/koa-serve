@@ -1,2 +1,8 @@
-export * from './account'
-export * from './auth'
+export * from './user'
+
+export type IPage = {
+  pageNo: number
+  pageSize: number
+  total?: number
+  records?: any
+}
