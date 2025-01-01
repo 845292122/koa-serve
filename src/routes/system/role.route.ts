@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client'
 export const RoleRoute = (zodRouter: ZodRouter) => {
   // * 创建角色
   zodRouter.post({
-    path: '/role',
+    path: '/system/role',
     validate: {
       continueOnError: true,
       body: z.object({
@@ -31,7 +31,7 @@ export const RoleRoute = (zodRouter: ZodRouter) => {
 
   // * 更新角色
   zodRouter.put({
-    path: '/role',
+    path: '/system/role',
     validate: {
       continueOnError: true,
       body: z.object({
@@ -58,7 +58,7 @@ export const RoleRoute = (zodRouter: ZodRouter) => {
 
   // * 删除角色
   zodRouter.delete({
-    path: '/role/:id',
+    path: '/system/role/:id',
     validate: {
       continueOnError: true,
       params: z.object({
@@ -75,7 +75,7 @@ export const RoleRoute = (zodRouter: ZodRouter) => {
 
   // * 获取角色列表
   zodRouter.get({
-    path: '/role/list',
+    path: '/system/role/list',
     validate: {
       continueOnError: true,
       query: z.object({
@@ -103,7 +103,7 @@ export const RoleRoute = (zodRouter: ZodRouter) => {
 
   // * 获取用户信息
   zodRouter.get({
-    path: '/role/:id',
+    path: '/system/role/:id',
     validate: {
       continueOnError: true,
       params: z.object({

@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client'
 export const PermissionRoute = (zodRouter: ZodRouter) => {
   // * 创建权限
   zodRouter.post({
-    path: '/permission',
+    path: '/system/permission',
     pre: async (ctx: Context, next: Next) => {
       ctx.log.info(ctx)
       await next()
@@ -34,7 +34,7 @@ export const PermissionRoute = (zodRouter: ZodRouter) => {
 
   // * 更新权限
   zodRouter.put({
-    path: '/permission',
+    path: '/system/permission',
     validate: {
       continueOnError: true,
       body: z.object({
@@ -64,7 +64,7 @@ export const PermissionRoute = (zodRouter: ZodRouter) => {
 
   // * 删除权限
   zodRouter.delete({
-    path: '/permission/:id',
+    path: '/system/permission/:id',
     validate: {
       continueOnError: true,
       params: z.object({
@@ -84,7 +84,7 @@ export const PermissionRoute = (zodRouter: ZodRouter) => {
 
   // * 获取权限列表
   zodRouter.get({
-    path: '/permission/list',
+    path: '/system/permission/list',
     validate: {
       continueOnError: true,
       query: z.object({
@@ -112,7 +112,7 @@ export const PermissionRoute = (zodRouter: ZodRouter) => {
 
   // * 获取权限信息
   zodRouter.get({
-    path: '/permission/:id',
+    path: '/system/permission/:id',
     validate: {
       continueOnError: true,
       params: z.object({

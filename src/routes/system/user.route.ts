@@ -10,7 +10,7 @@ import { UserType } from '../../types'
 export const UserRoute = (zodRouter: ZodRouter) => {
   // * 创建用户
   zodRouter.post({
-    path: '/user',
+    path: '/system/user',
     pre: async (ctx: Context, next: Next) => {
       ctx.log.info('ctx', ctx)
       await next()
@@ -43,7 +43,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 更新用户
   zodRouter.put({
-    path: '/user',
+    path: '/system/user',
     validate: {
       continueOnError: true,
       body: z.object({
@@ -74,7 +74,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 删除用户
   zodRouter.delete({
-    path: '/user/:id',
+    path: '/system/user/:id',
     validate: {
       continueOnError: true,
       params: z.object({
@@ -96,7 +96,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 获取用户列表
   zodRouter.get({
-    path: '/user/list',
+    path: '/system/user/list',
     validate: {
       continueOnError: true,
       query: z.object({
@@ -124,7 +124,7 @@ export const UserRoute = (zodRouter: ZodRouter) => {
 
   // * 获取用户信息
   zodRouter.get({
-    path: '/user/:id',
+    path: '/system/user/:id',
     validate: {
       continueOnError: true,
       params: z.object({

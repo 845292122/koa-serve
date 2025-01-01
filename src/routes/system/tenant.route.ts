@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client'
 export const TenantRoute = (zodRouter: ZodRouter) => {
   // * 创建租户
   zodRouter.post({
-    path: '/tenant',
+    path: '/system/tenant',
     validate: {
       continueOnError: true,
       body: z.object({
@@ -36,7 +36,7 @@ export const TenantRoute = (zodRouter: ZodRouter) => {
 
   // * 更新租户信息
   zodRouter.put({
-    path: '/tenant',
+    path: '/system/tenant',
     validate: {
       continueOnError: true,
       body: z.object({
@@ -68,7 +68,7 @@ export const TenantRoute = (zodRouter: ZodRouter) => {
 
   // * 删除租户
   zodRouter.delete({
-    path: '/tenant/:id',
+    path: '/system/tenant/:id',
     validate: {
       continueOnError: true,
       params: z.object({
@@ -88,7 +88,7 @@ export const TenantRoute = (zodRouter: ZodRouter) => {
 
   // * 租户列表
   zodRouter.get({
-    path: '/tenant/list',
+    path: '/system/tenant/list',
     validate: {
       continueOnError: true,
       query: z.object({
@@ -116,7 +116,7 @@ export const TenantRoute = (zodRouter: ZodRouter) => {
 
   // * 租户信息
   zodRouter.get({
-    path: '/tenant/:id',
+    path: '/system/tenant/:id',
     validate: {
       continueOnError: true,
       params: z.object({
