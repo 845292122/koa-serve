@@ -6,7 +6,7 @@ export const errorHandleMiddleware = async (ctx: Context, next: Next) => {
     let msg: string
 
     if (err.name === 'PrismaClientValidationError') {
-      ctx.status = 400
+      ctx.status = 200
       ctx.body = { code: 400, msg: 'prismaError' }
       ctx.log.error(err.message)
       return Promise.resolve()

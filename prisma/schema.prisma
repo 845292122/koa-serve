@@ -53,6 +53,7 @@ model Role {
   tenantId  Int?     @db.UnsignedInt
   tenant    Tenant?  @relation(fields: [tenantId], references: [id])
   name      String?  @db.VarChar(100)
+  key       String?  @db.VarChar(50)
   status    Int?     @default(1)
   delFlag   Int      @default(0) @db.TinyInt
   createBy  String?

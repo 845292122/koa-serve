@@ -13,14 +13,15 @@ export const RoleRoute = (zodRouter: ZodRouter) => {
     validate: {
       continueOnError: true,
       body: z.object({
-        name: z.string({ message: '角色名称不能为空' })
+        name: z.string({ message: '角色名称不能为空' }),
+        key: z.string({ message: '角色标识不能为空' })
       })
     },
     handler: async (ctx: Context) => {
       parseAndThrowZodError(ctx)
       const roleInfo: RoleType = ctx.request.body
       const roleExist = await PrismaObj.role.findFirst({
-        where: { name: roleInfo.name, delFlag: 0 }
+        where: { key: roleInfo.key, delFlag: 0 }
       })
       if (roleExist) throw new BadRequesetError('角色已存在')
 
@@ -46,7 +47,7 @@ export const RoleRoute = (zodRouter: ZodRouter) => {
           id: {
             not: roleInfo.id
           },
-          name: roleInfo.name,
+          key: roleInfo.key,
           delFlag: 0
         }
       })
@@ -86,11 +87,12 @@ export const RoleRoute = (zodRouter: ZodRouter) => {
     },
     handler: async (ctx: Context) => {
       parseAndThrowZodError(ctx)
-      const { pageNo, pageSize, name } = ctx.query
+      const { pageNo, pageSize, name, status } = ctx.query
       const pageParam = convertPageParam(pageNo, pageSize)
       const condition: Prisma.RoleWhereInput = {
         delFlag: 0,
-        name: name ? { startsWith: name as string } : undefined
+        name: name ? { startsWith: name as string } : undefined,
+        status: status ? Number(status) : undefined
       }
       const records = await PrismaObj.role.findMany({
         where: condition,
