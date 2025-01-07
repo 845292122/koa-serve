@@ -2,10 +2,11 @@ import addressIp from 'ip'
 import koa from 'koa'
 import koaBody from 'koa-body'
 import koaJwt from 'koa-jwt'
-import koaPinoLogger from 'koa-pino-logger'
 import koaStatic from 'koa-static'
 import koaCors from 'koa2-cors'
 import path from 'path'
+import koaMorgan from 'koa-morgan'
+import fs from 'fs'
 
 import { JWT_SECRET, JWT_WHITE_LIST } from './core/constant'
 import { corsMiddleware, errorHandleMiddleware, respMiddleware } from './middleware'
@@ -26,9 +27,12 @@ import router from './routes'
 
 const APP_PORT = 3000
 const app = new koa()
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, '../logs/access.log'), { flags: 'a' })
+app.use(koaMorgan(':method :url :status :response-time ms - :res[content-type]', { stream: accessLogStream }))
+
 app.use(errorHandleMiddleware)
 app.use(respMiddleware)
-app.use(koaPinoLogger())
 app.use(koaCors(corsMiddleware))
 app.use(
   koaBody({
